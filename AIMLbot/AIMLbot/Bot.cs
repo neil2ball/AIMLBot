@@ -362,10 +362,10 @@ namespace AIMLbot
         /// <summary>
         /// Loads AIML from .aiml files into the graphmaster "brain" of the bot
         /// </summary>
-        public void loadAIMLFromFiles()
+        public void loadAIMLFromFiles(string pathhere)
         {
             AIMLLoader loader = new AIMLLoader(this);
-            loader.loadAIML();
+            loader.loadAIML(pathhere);
         }
 
         /// <summary>
@@ -400,14 +400,14 @@ namespace AIMLbot
         public void loadSettings()
         {
             // try a safe default setting for the settings xml file
-            string path = Path.Combine(
+          /*  string path = Path.Combine(
 #if NETSTANDARD
                 Directory.GetCurrentDirectory(),
 #else
                 Environment.CurrentDirectory,
 #endif
                 Path.Combine("config", "Settings.xml"));
-            this.loadSettings(path);          
+            this.loadSettings(path);   */       
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace AIMLbot
         /// Also generates some default values if such values have not been set by the settings file.
         /// </summary>
         /// <param name="pathToSettings">Path to the settings xml file</param>
-        public void loadSettings(string pathToSettings)
+        public void loadSettings(string pathToSettings,string pathToConfigFiles)
         {
             this.GlobalSettings.loadSettings(pathToSettings);
 
@@ -545,14 +545,14 @@ namespace AIMLbot
             }
 
             // Load the dictionaries for this Bot from the various configuration files
-            this.Person2Substitutions.loadSettings(Path.Combine(this.PathToConfigFiles, this.GlobalSettings.grabSetting("person2substitutionsfile")));
-            this.PersonSubstitutions.loadSettings(Path.Combine(this.PathToConfigFiles, this.GlobalSettings.grabSetting("personsubstitutionsfile")));
-            this.GenderSubstitutions.loadSettings(Path.Combine(this.PathToConfigFiles, this.GlobalSettings.grabSetting("gendersubstitutionsfile")));
-            this.DefaultPredicates.loadSettings(Path.Combine(this.PathToConfigFiles, this.GlobalSettings.grabSetting("defaultpredicates")));
-            this.Substitutions.loadSettings(Path.Combine(this.PathToConfigFiles, this.GlobalSettings.grabSetting("substitutionsfile")));
+            this.Person2Substitutions.loadSettings(Path.Combine(pathToConfigFiles, this.GlobalSettings.grabSetting("person2substitutionsfile")));
+            this.PersonSubstitutions.loadSettings(Path.Combine(pathToConfigFiles, this.GlobalSettings.grabSetting("personsubstitutionsfile")));
+            this.GenderSubstitutions.loadSettings(Path.Combine(pathToConfigFiles, this.GlobalSettings.grabSetting("gendersubstitutionsfile")));
+            this.DefaultPredicates.loadSettings(Path.Combine(pathToConfigFiles, this.GlobalSettings.grabSetting("defaultpredicates")));
+            this.Substitutions.loadSettings(Path.Combine(pathToConfigFiles, this.GlobalSettings.grabSetting("substitutionsfile")));
 
             // Grab the splitters for this bot
-            this.loadSplitters(Path.Combine(this.PathToConfigFiles,this.GlobalSettings.grabSetting("splittersfile")));
+            this.loadSplitters(Path.Combine(pathToConfigFiles, this.GlobalSettings.grabSetting("splittersfile")));
         }
 
         /// <summary>
